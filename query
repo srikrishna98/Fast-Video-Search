@@ -1,0 +1,15 @@
+#!/bin/bash
+
+# echo "Where is your video file?"
+
+# read where
+
+# echo "Your file is located at $where"
+
+foldername=queries/testing/*
+for file in $foldername
+do
+    echo $(basename $file)
+    ffprobe -v error -hide_banner -select_streams v:0 $file -show_packets -show_data_hash MD5 -sexagesimal -of json > queries/testing_json/$(basename $file).json
+    python3 query.py queries/testing_json/$(basename $file).json
+done

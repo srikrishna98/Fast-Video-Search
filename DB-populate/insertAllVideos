@@ -1,0 +1,8 @@
+#!/bin/bash
+
+foldername=videos_json/*
+
+for file in $foldername
+do
+    python3 uploadToDb.py $file
+done
