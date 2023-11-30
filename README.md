@@ -1,9 +1,14 @@
 # HOW TO RUN
 
+## Installations
+- Install all the dependencies from ```requirements.txt```
+- Install [ffmpeg](https://ffmpeg.org/download.html)
+  
 ## Database setup
 - In this project we use postgres as the database engine.
 - Create a database and name it 'MultimediaDB'.
 - Run the sql script inside ```/DB-create``` directory.
+
 ## Data population
 - Once the db table has been created, the next step is to process all the videos to be inserted into the database.
 - All videos are present in the ```/DB-populate/videos``` directory.
@@ -20,6 +25,7 @@
      ./insertAllVideos
     ~~~
 - This inserts all the json objects to the database.
+  
 ## Querying
 - Now the database is populated and ready to be queried.
 - Clear the ```queries/tesing``` directory and insert the video query.
