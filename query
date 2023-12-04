@@ -6,7 +6,7 @@
 
 # echo "Your file is located at $where"
 
-foldername=queries/testing/*
+foldername=queries/videos/*
 for file in $foldername
 do
     echo $(basename $file)

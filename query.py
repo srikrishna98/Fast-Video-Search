@@ -41,7 +41,7 @@ data = json.load(f)
 firstFrame = findFirstFrame(data['packets'])
 firstFrameHash = data['packets'][firstFrame]['data_hash']
 firstFrameRecord = getFirstFrameRecord(firstFrameHash)
-video_path = f"../ffprobe-parse/videos/video{firstFrameRecord[0]}.mp4"
+video_path = f"../DB-populate/videos/video{firstFrameRecord[0]}.mp4"
 
 print(firstFrameRecord)
 
@@ -60,4 +60,4 @@ total_seconds = hours * 3600 + minutes * 60 + seconds + microseconds / 1e6
 # Play the video in VLC
 # subprocess.run(["vlc", video_path, "--start-time", str(total_seconds)])
 
-print(video_path, total_seconds, time_str)
+print(video_path, total_seconds, time_str, int(total_seconds)*30)
