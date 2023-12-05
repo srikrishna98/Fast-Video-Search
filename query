@@ -1,15 +1,26 @@
 #!/bin/bash
 
-# echo "Where is your video file?"
+if [ "$#" -ne 1 ]; then
+    echo "Usage: $0 <video_file>"
+    exit 1
+fi
 
-# read where
+file="$1"
 
-# echo "Your file is located at $where"
+if [ ! -f "$file" ]; then
+    echo "File not found: $file"
+    exit 1
+fi
 
-foldername=queries/videos/*
-for file in $foldername
-do
-    echo $(basename $file)
-    ffprobe -v error -hide_banner -select_streams v:0 $file -show_packets -show_data_hash MD5 -sexagesimal -of json > queries/testing_json/$(basename $file).json
-    python3 query.py queries/testing_json/$(basename $file).json
-done
+foldername="queries/testing"
+
+echo "Processing file: $(basename "$file")"
+
+start_time=$(date +%s.%N)
+ffprobe -v error -hide_banner -select_streams v:0 "$file" -show_packets -show_data_hash MD5 -sexagesimal -of json > "$foldername/$(basename "$file").json"
+end_time=$(date +%s.%N)
+
+elapsed_time=$(echo "scale=3; ($end_time - $start_time) * 1000" | bc)
+echo "Time taken for preprocessing: $elapsed_time milliseconds"
+
+python3 query.py "$foldername/$(basename "$file").json"
