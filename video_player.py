@@ -62,7 +62,7 @@ class VideoPlayer(QWidget):
         self.mediaPlayer.positionChanged.connect(self.position_changed)
 
         self.timer = QTimer(self)
-        self.timer.setInterval(1000)
+        # self.timer.setInterval(1000)
         self.timer.timeout.connect(self.update_time)
         self.reset_video()
 
@@ -106,7 +106,7 @@ class VideoPlayer(QWidget):
         frame_rate = 30
         current_frame = int(current_time_ms / (1000 / frame_rate))
         total_frames = int(total_time_ms / (1000 / frame_rate))
-        time_and_frame_info = f"{self.format_time(current_time_ms)} / {self.format_time(total_time_ms)}, Frame: {current_frame} / {total_frames}"
+        time_and_frame_info = f"{self.format_time(current_time_ms)} / {self.format_time(total_time_ms)}        Frame: {current_frame} / {total_frames}"
         self.timeLabel.setText(time_and_frame_info)
 
     def format_time(self, ms):

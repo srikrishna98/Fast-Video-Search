@@ -45,12 +45,15 @@ data = json.load(f)
 startTime = time.time()
 firstFrame = findFirstFrame(data['packets'])
 firstFrameHash = data['packets'][firstFrame]['data_hash']
+print(firstFrameHash)
 firstFrameRecord = getFirstFrameRecord(firstFrameHash)
 endTime = time.time()
 
+print(firstFrameRecord)
+
 video_path = f"/Users/krish/Desktop/USC Acads/CSCI 576 - Multimedia Systems/Project/Database_Approach/DB-populate/videos/video{firstFrameRecord[0]}.mp4"
 
-# print(firstFrameRecord)
+
 
 time_str = firstFrameRecord[1]
 
