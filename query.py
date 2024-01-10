@@ -4,6 +4,9 @@ import sys
 import os
 import json
 import subprocess
+import time
+
+from video_player import VideoApp
 
 load_dotenv()
 
@@ -32,18 +35,25 @@ def getFirstFrameRecord(hash):
 try:
     conn.connect_to_db()
 except Exception as e:
-    raise ValueError(f"Error inserting data {str(e)}") from e
+    raise ValueError(f"Error Searching data {str(e)}") from e
 
 file_name = sys.argv[1]
 f= open(file_name,"r")
 data = json.load(f)
 
+# Find the start and end time for the querying process
+startTime = time.time()
 firstFrame = findFirstFrame(data['packets'])
 firstFrameHash = data['packets'][firstFrame]['data_hash']
+print(firstFrameHash)
 firstFrameRecord = getFirstFrameRecord(firstFrameHash)
-video_path = f"../DB-populate/videos/video{firstFrameRecord[0]}.mp4"
+endTime = time.time()
 
 print(firstFrameRecord)
+
+video_path = f"/Users/krish/Desktop/USC Acads/CSCI 576 - Multimedia Systems/Project/Database_Approach/DB-populate/videos/video{firstFrameRecord[0]}.mp4"
+
+
 
 time_str = firstFrameRecord[1]
 
@@ -61,3 +71,8 @@ total_seconds = hours * 3600 + minutes * 60 + seconds + microseconds / 1e6
 # subprocess.run(["vlc", video_path, "--start-time", str(total_seconds)])
 
 print(video_path, total_seconds, time_str, int(total_seconds)*30)
+# Display the time taken in seconds
+# print(f"Time taken to find the exact frame: {endTime - startTime}")
+# Play the video in the custom video player
+app = VideoApp(video_path, startTime=total_seconds*1000, displayText=f"Exact match video{firstFrameRecord[0]}.mp4 found in : {endTime - startTime} seconds")
+app.run()
